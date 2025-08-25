@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<style>
+a {
+	text-decoration: none;
+	color: white;
+}
+</style>
+
+</head>
+<body>
+
+	<header style="position:fixed; top:0px; left:0px; width:100%; height: 150px; line-height: 150px; background-color: #B8CCE8; text-align: center; font-size: 40px;">
+	(과정평가형 정보처리산업기사) 차량주행관리 프로그램 
+	</header>
+
+	<nav style="position: fixed; top: 150px; left: 0px; width: 100%; height: 80px; line-height: 80px; background-color: #8C8CE0; color :white; padding-left: 40px;">
+		<a href="c_list.jsp">차량조회</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<a href="insert.jsp">주행내역등록</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<a href="r_list.jsp">주행내역조회</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<a href="status.jsp">부서별주행통계</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<a href="index.jsp">홈으로</a>
+	</nav>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<%@page import="java.text.*"%>
+<%@ include file = "db.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
+<section style="position: fixed; top: 230px; left: 0px; width: 100%; height: 100%; background-color: lightgray;">
+<h2 style="text-align: center;">주행내역조회</h2>
+
+<form style ="display :flex; align-items: center; justify-content: center; text-align: center;">
+	<table style ="width: 1000px;" border="1">
+		<tr>
+			<th>주행일자</th>
+			<th>차량번호</th>
+			<th>모델</th>
+			<th>출발km</th>
+			<th>도착km</th>
+			<th>부서명</th>
+			<th>주유금액</th>
+		</tr>
+		<%
+		request.setCharacterEncoding("UTF-8");
+		try {
+			String sql = "select drv_date, d.car_no, car_model, drv_start, drv_end, dept_code, drv_money "
+					+ "from tbl_drive d "
+					+ "join tbl_car c on d.car_no = c.car_no "
+					+ "order by d.car_no, drv_date desc";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String date = rs.getString(1);
+				String dater = date.substring(0,4) + "년" + date.substring(4,6) + "월" + date.substring(6,8) + "일";
+				DecimalFormat df = new DecimalFormat("###,###");
+				int start = rs.getInt(4);
+				String starts = df.format(start);
+				int end = rs.getInt(5);
+				String ends = df.format(end);
+				String dept = rs.getString(6);
+				if(dept.equals("10"))
+					dept = "영업부";
+				else if (dept.equals("20"))
+					dept = "총무부";
+				else if (dept.equals("30"))
+					dept = "구매부";
+				else
+					dept = "개발부";
+				DecimalFormat dff = new DecimalFormat("₩###,###");
+				int amount = rs.getInt(7);
+				String amounts = dff.format(amount);
+				%>
+				<tr>
+					<td><%=dater%></td>
+					<td><%=rs.getString(2)%></td>
+					<td><%=rs.getString(3)%></td>
+					<td><%=starts%></td>
+					<td><%=ends%></td>
+					<td><%=dept%></td>
+					<td><%=amounts%></td>
+				</tr>
+				<%
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		%>
+	</table>
+</form>
+
+</section>
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+</body>
+</html>

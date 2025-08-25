@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<style>
+th {
+ text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
+<section style="position: fixed; top: 230px; left: 0px; width: 100%; height: 100%; background-color: lightgray;">
+<h2 style="text-align: center;">주행내역등록</h2>
+
+<form style="display: flex; align-items: center; justify-content: center;">
+	<table border="1">
+		<tr>
+			<th>주행일자</th>
+			<td><input type="text" name="drv_date"> 2023년01월01일 예)20230101</td>
+		</tr>
+		<tr>
+			<th>차량번호</th>
+			<td><input type="text" name="car_no"> 예)10가0001</td>
+		</tr>
+		<tr>
+			<th>출발Km</th>
+			<td><input type="text" name="drv_start"> km</td>
+		</tr>
+		<tr>
+			<th>도착Km</th>
+			<td><input type="text" name="drv_end"> km</td>
+		</tr>
+	</table>
+</form>
+
+</section>
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+</body>
+</html>

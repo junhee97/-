@@ -1,0 +1,23 @@
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+	request.setCharacterEncoding("UFT-8");
+	try {
+		String sql = "insert into tbl_vote_202005 values (?, ?, ?, ?, ?, ?)";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, request.getParameter("v_jumin"));
+		pstmt.setString(2, request.getParameter("v_name"));
+		pstmt.setString(3, request.getParameter("m_no"));
+		pstmt.setString(4, request.getParameter("v_time"));
+		pstmt.setString(5, request.getParameter("v_area"));
+		pstmt.setString(6, request.getParameter("v_confirm"));
+		int result = pstmt.executeUpdate();
+		if(result > 0) {
+			response.sendRedirect("index.jsp");
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+%>

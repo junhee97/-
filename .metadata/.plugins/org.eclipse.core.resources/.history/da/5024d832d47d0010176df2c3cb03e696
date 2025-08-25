@@ -1,0 +1,22 @@
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	String rm = request.getParameter("regist_month");
+	String cno = request.getParameter("c_no");
+	String carea = request.getParameter("class_area");
+	int tuition = Integer.parseInt(request.getParameter("tuition"));
+	try {
+		String sql = "insert into tbl_class_202201 values (?, ?, ?, ?, ?)";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1,"");
+		int result = pstmt.executeUpdate();
+		if (result > 0 ) {
+			response.sendRedirect("index.jsp");
+		}
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+%>

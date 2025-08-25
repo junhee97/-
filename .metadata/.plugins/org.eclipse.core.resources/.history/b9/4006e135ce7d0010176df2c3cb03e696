@@ -1,0 +1,116 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
+<section style="position: fixed; top: 200px; left: 0px; width: 100%; height: 100%; background-color: lightgray;">
+<h2 style="text-align: center;">수강신청</h2>
+
+<form name="frm" style="display:flex; align-items:center; justify-content:center;">
+	<table style="width: 500px;" border="1">
+		<tr>
+			<td style="text-align: center;">수강월</td>
+			<td><input type="text" name="regist_month"> 예) 2022년03월 -> 202203</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">회원명</td>
+			<td>
+				<select style="width: 175px;" name="c_name" onchange="aa(this.value)">
+					<option value="">회원명</option>
+					<option value="10001">홍길동</option>
+					<option value="10002">장발장</option>
+					<option value="10003">임꺽정</option>
+					<option value="20001">성춘향</option>
+					<option value="20002">이몽룡</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">회원번호</td>
+			<td><input id="c_no" name="c_no" readonly> 예) 10001</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">강의 장소</td>
+			<td><input type="text" name="class_area"></td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">강의명</td>
+			<td>
+				<select style="width: 175px;" name="class_name" onchange="bb(this.value)">
+					<option value="">강의신청</option>
+					<option value="100000">초급반</option>
+					<option value="200000">중급반</option>
+					<option value="300000">고급반</option>
+					<option value="400000">심화반</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">수강료</td>
+			<td><input id="tuition" name="tuition" readonly> 원</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="2">
+				<input type="button" value="수강신청" onclick="add()"> &nbsp;
+				<input type="button" value="다시쓰기" onclick="res()">
+			</td>
+		</tr>
+	</table>
+</form>
+
+</section>
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+<script>
+	function add() {
+		if(frm.regist_month.value == 0) {
+			alert('수강월이 입력되지 않았습니다!');
+			frm.regist_month.focus();
+			return false;
+		} else if(frm.c_name.value == 0) {
+			alert('회원명이 선택되지 않았습니다!');
+			frm.c_name.focus();
+			return false;
+		} else if(frm.class_area.value == 0) {
+			alert('강의장소가 입력되지 않았습니다!');
+			frm.class_area.focus();
+			return false;
+		} else if(frm.class_name.value == 0) {
+			alert('강의명이 선택되지 않았습니다!');
+			frm.class_name.focus();
+			return false;
+		} else {
+			alert('수강신청이 정상적으로 완료되었습니다!');
+			document.frm.submit();
+		}
+	}
+	
+	function res() {
+		alert('모든 정보를 지우고 처음부터 다시 입력합니다!');
+		document.frm.reset();
+		frm.regist_month.focus();
+	}
+	
+	function aa(c_no) {
+		document.getElementById("c_no").value = c_no;
+		c = c_no;
+	}
+	
+	function bb(tuition) {
+		if(c_no >= 20000)
+			document.getElementById("tuition").value = tuition/2;
+		else
+			document.getElementById("tuition").value = tuition;
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<%@page import="java.util.Calendar"%>
+<%@ include file = "db.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
+<section style="position: fixed; top: 230px; left: 0px; width: 100%; height: 100%; background-color: lightgray;">
+<h2 style="text-align: center; padding-top: 50px;">투표검수조회</h2>
+
+<form style="display: flex; align-items: center; justify-content: center; text-align: center;">
+	<table border = "1">
+		<tr>
+			<td>성명</td>
+			<td>생년월일</td>
+			<td>나이</td>
+			<td>성별</td>
+			<td>후보번호</td>
+			<td>투표시간</td>
+			<td>유권자확인</td>
+		</tr>
+		<%
+		request.setCharacterEncoding("UTF-8");
+		try {
+			String sql = "select * from tbl_vote_202005 where v_area = '제1투표장'";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String jumin = rs.getString(1);
+				String birth = "19" + jumin.substring(0,2) +"년" + jumin.substring(2,4) +"월"+ jumin.substring(4,6) + "일생";
+				Calendar cal = Calendar.getInstance();
+				String ju1 =jumin.substring(0,2);
+				int y = Integer.parseInt(ju1);
+				int caly = cal.get(Calendar.YEAR);
+				int age = caly - (1900+y);
+				String gender = jumin.substring(6,7);
+				if(gender.equals("1")) {
+					gender = "남";
+				} else {
+					gender = "여";
+				}
+				String time = rs.getString(4);
+				String time2 = time.substring(0,2) + ":" + time.substring(2,4);
+				String check = rs.getString(6);
+				if(check.equals("n")) {
+					check = "미확인";
+				} else {
+					check = "확인";
+				}
+				%>
+				<tr>
+					<td><%=rs.getString(2)%></td>
+					<td><%=birth%></td>
+					<td><%="만 " + age + "세"%></td>
+					<td><%=gender%></td>
+					<td><%=rs.getString(3)%></td>
+					<td><%=time2%></td>
+					<td><%=check%></td>
+				</tr>
+				<%
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		%>
+	</table>
+</form>
+
+</section>
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+
+</body>
+</html>

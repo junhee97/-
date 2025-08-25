@@ -1,0 +1,19 @@
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	try {
+		String sql = "insert into tbl_drive values(?, ?, ?, ?, ?, ?)";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, x);
+		pstmt.setString(2, x);
+		pstmt.setInt(3, x);
+		pstmt.setInt(4, x);
+		pstmt.setString(5, x);
+		pstmt.setInt(6, x);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+%>

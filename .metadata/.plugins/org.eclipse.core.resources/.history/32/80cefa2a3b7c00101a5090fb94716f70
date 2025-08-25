@@ -1,0 +1,60 @@
+<%@ page import = "java.text.*" %>
+<%@ include file = "db.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
+<section style="position: fixed; top: 230px; left: 0px; width: 100%; height: 100%; background-color: lightgray;">
+<h2 style="text-align: center;">(부서별)주행통계</h2>
+
+<form style ="display :flex; align-items: center; justify-content: center; text-align: center;">
+	<table style ="width: 500px;" border="1">
+		<tr>
+			<th>부서코드</th>
+			<th>부서명</th>
+			<th>총운행거리</th>
+			<th>총주유금액</th>
+		</tr>
+		<%
+		request.setCharacterEncoding("UTF-8");
+		try {
+			String sql = "select de.dept_code, dept_name, sum(drv_end - drv_start) as 총운행거리, sum(drv_money) as 총주유금액 "
+					+ "from tbl_dept de "
+					+ "join tbl_drive dr on de.dept_code = dr.dept_code "
+					+ "group by de.dept_code, dept_name";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				DecimalFormat df = new DecimalFormat("₩###,###");
+				int amount = rs.getInt(4);
+				String amounts = df.format(amount);
+				%>
+				<tr>
+					<td><%=rs.getString(1)%></td>
+					<td><%=rs.getString(2)%></td>
+					<td style = "text-align: end"><%=rs.getString(3)%></td>
+					<td style = "text-align: end"><%=amounts%></td>
+				</tr>
+				<%
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		%>
+	</table>
+</form>
+
+</section>
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+</body>
+</html>
